@@ -1,27 +1,25 @@
-class Machine:
-    def __init__(self, number, chances, answer):
-        self.number = number
-        self.chances = chances
-        self.answer = answer
-        self.is_correct = False
+import random
 
-    def machine_set_number(self):
-        self.number = range(1,100)
-        print(self.number)
+player_name = str(input("Enter your name: "))
+number = random.randint(1, 100)
+attempts = 0
+leaderboard = {'Tom': 2, 'John': 4}
 
-    def is_player_correct(self):
-        if self.chances > 0 and self.answer == self.number:
-            self.is_correct = True
-            print('You guessed the correct number {number} in {chances} chances! Great job {name}!'.format(number=self.number, chances=self.chances, name=Player.name))
-    
-class Player:
-    def __init__(self, name, guess):
-        self.name = name
-        self.guess = guess
-        self.nan = False
-    
-    def set_player_name(self):
-        self.name = input('Type your name:')
-    
-player = Player('Nate', 5)
-player.set_player_name()
+while attempts != 5:
+    guess = int(input("Guess a number between 1-100: "))
+
+    if guess > number:
+        print('Your guess is too high!')
+        attempts = attempts + 1
+    elif guess < number:
+        print('Your guess is too low!')
+        attempts = attempts + 1
+    elif guess == number:
+        print(f'You guessed the number: {number} in {attempts} attempts! Great job {player_name}!')
+        leaderboard.update({player_name: attempts})
+        print(leaderboard)
+        exit()
+
+if attempts == 5:
+    print('You ran out of attempts! Try again!')
+    exit()
